@@ -29,6 +29,7 @@
         <activity android:name=".TaskActivity"/>
         <!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
         <!--            android:value="@string/google_place_api"></meta-data>-->
+        <receiver android:name="notifications.RouteLocation"/>
     </application>
 
 </manifest>
