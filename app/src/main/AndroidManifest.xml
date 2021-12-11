@@ -17,13 +17,18 @@
 <!--            android:value="@string/map_key"></meta-data>-->
 
         <activity
-            android:name=".MainActivity"
+            android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Client" />
+        <activity android:name="services.Service" />
+        <activity android:name=".TaskActivity"/>
+        <!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
+        <!--            android:value="@string/google_place_api"></meta-data>-->
     </application>
 
 </manifest>
