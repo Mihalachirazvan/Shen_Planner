@@ -17,7 +17,7 @@
             android:value="@string/map_key"></meta-data>
 
         <activity
-            android:name="services.MapLocation"
+            android:name="services.Suggestion"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Shen</string>
     <string name="map_key" templateMergeStrateg = "preserve" translatable="false" >
-        AIzaSyDd2L86IONFwNp-2tckq10eDihqcgiIAoY
+       AIzaSyDXQIHIT4D_TUJoXo8ffS56Dtrhicq68fk
+    </string>
+    <string name="nearby_api" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyAPVTSAz1WTxwqBNejvFi-g51R1fcBi3Fk
     </string>
 </resources>
