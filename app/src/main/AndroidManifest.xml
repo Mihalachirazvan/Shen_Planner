@@ -12,10 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Shen">
-
-<!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="@string/map_key"></meta-data>-->
-
         <activity
             android:name=".AuthActivity"
             android:exported="true">
@@ -26,9 +22,10 @@
         </activity>
         <activity android:name=".Client" />
         <activity android:name="services.Service" />
-        <activity android:name=".TaskActivity"/>
-        <!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
-        <!--            android:value="@string/google_place_api"></meta-data>-->
+        <activity android:name=".CalendarActivity"/>
+        <activity android:name=".DailyCalendarActivity"/>
+        <activity android:name=".EventEditActivity"/>
+        <activity android:name=".WeekViewActivity"/>
     </application>
 
 </manifest>
