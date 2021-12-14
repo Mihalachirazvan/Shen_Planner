@@ -3,14 +3,19 @@ package com.upt.cti.shen;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.upt.cti.shen.utils.CalendarUtils;
 import com.upt.cti.shen.utils.Event;
 
@@ -20,6 +25,8 @@ public class EventEditActivity extends AppCompatActivity
 {
     private EditText eventNameET, eventTimeStart, eventTimeEnd;
     private TextView eventDateTV;
+    @SuppressLint("VisibleForTests")
+    private FirebaseFirestore db;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch driving, anniversary, gallery;
 
@@ -56,6 +63,25 @@ public class EventEditActivity extends AppCompatActivity
         String gallery = this.gallery.getText().toString();
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
         Event.eventsList.add(newEvent);
+        saveEventToFirebase(newEvent);
         finish();
+    }
+
+    private void saveEventToFirebase(Event newEvent) {
+        db.collection("activities").document("doc")
+                .set(newEvent)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error writing document", e);
+                    }
+                });
+
     }
 }
