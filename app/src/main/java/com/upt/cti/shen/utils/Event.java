@@ -1,14 +1,16 @@
 package com.upt.cti.shen.utils;
 
+import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Event {
+public class Event implements Serializable {
     public static ArrayList<Event> eventsList = new ArrayList<>();
 
     public static ArrayList<Event> eventsForDate(LocalDate date) {
@@ -41,9 +43,13 @@ public class Event {
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;
-    private String driving;
-    private String anniversary;
-    private String gallery;
+    private boolean driving;
+    private boolean anniversary;
+    private boolean gallery;
+    private boolean gift = false;
+    private boolean like_address = false;
+    private String location_txt="";
+    private transient ArrayList<Uri> mArrayUri = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -77,31 +83,31 @@ public class Event {
         this.end = end;
     }
 
-    public String getDriving() {
+    public Boolean getDriving() {
         return driving;
     }
 
-    public void setDriving(String driving) {
+    public void setDriving(Boolean driving) {
         this.driving = driving;
     }
 
-    public String getAnniversary() {
+    public Boolean getAnniversary() {
         return anniversary;
     }
 
-    public void setAnniversary(String anniversary) {
+    public void setAnniversary(Boolean anniversary) {
         this.anniversary = anniversary;
     }
 
-    public String getGallery() {
+    public Boolean getGallery() {
         return gallery;
     }
 
-    public void setGallery(String gallery) {
+    public void setGallery(Boolean gallery) {
         this.gallery = gallery;
     }
 
-    public Event(String name, LocalDate date, LocalTime start, LocalTime end, String driving, String anniversary, String gallery) {
+    public Event(String name, LocalDate date, LocalTime start, LocalTime end, Boolean driving, Boolean anniversary, Boolean gallery) {
         this.name = name;
         this.date = date;
         this.start = start;
@@ -112,4 +118,31 @@ public class Event {
     }
 
 
+    public String getLocation_txt() {
+        return location_txt;
+    }
+
+    public void setLocation_txt(String location_txt) {
+        this.location_txt = location_txt;
+    }
+
+    public boolean isLike_address() {
+        return like_address;
+    }
+
+    public void setLike_address(boolean like_address) {
+        this.like_address = like_address;
+    }
+
+    public boolean isGift() {
+        return gift;
+    }
+
+    public void setGift(boolean gift) {
+        this.gift = gift;
+    }
+
+    public ArrayList<Uri> getmArrayUri() {
+        return mArrayUri;
+    }
 }

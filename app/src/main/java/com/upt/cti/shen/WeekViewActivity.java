@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,6 +38,22 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         setContentView(R.layout.activity_week_view);
         initWidgets();
         setWeekView();
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Event x = (Event) eventListView.getItemAtPosition(i);
+                if (x.getAnniversary()) {
+                    Intent intent = new Intent(adapterView.getContext(),AnniversaryEvent.class);
+                    intent.putExtra("Event",x);
+                    startActivity(intent);
+                }
+                else if(x.getGallery()) {
+                    Intent intent = new Intent(adapterView.getContext(),PlaceEvent.class);
+                    intent.putExtra("Event",x);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void initWidgets()

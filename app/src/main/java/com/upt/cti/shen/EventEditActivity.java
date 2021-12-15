@@ -58,12 +58,12 @@ public class EventEditActivity extends AppCompatActivity
         String eventName = eventNameET.getText().toString();
         String eventStart = eventTimeStart.getText().toString();
         String eventEnd = eventTimeEnd.getText().toString();
-        String driving = this.driving.getText().toString();
-        String anniversary = this.anniversary.getText().toString();
-        String gallery = this.gallery.getText().toString();
+        Boolean driving = this.driving.isChecked();
+        Boolean anniversary = this.anniversary.isChecked();
+        Boolean gallery = this.gallery.isChecked();
         Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
         Event.eventsList.add(newEvent);
-        saveEventToFirebase(newEvent);
+        //saveEventToFirebase(newEvent);
         finish();
     }
 
