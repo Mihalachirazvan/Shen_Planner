@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.upt.cti.shen.utils.CalendarUtils;
 import com.upt.cti.shen.utils.Event;
@@ -27,8 +30,10 @@ public class EventEditActivity extends AppCompatActivity
     private TextView eventDateTV;
     @SuppressLint("VisibleForTests")
     private FirebaseFirestore db;
+    private DatabaseReference root;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch driving, anniversary, gallery;
+    private Button bt_save;
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -50,25 +55,34 @@ public class EventEditActivity extends AppCompatActivity
         driving = findViewById(R.id.driving);
         anniversary = findViewById(R.id.anniversary);
         gallery = findViewById(R.id.gallery);
+        bt_save = findViewById(R.id.bt_save);
+
+        db = FirebaseFirestore.getInstance();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void saveEventAction(View view)
     {
-        String eventName = eventNameET.getText().toString();
-        String eventStart = eventTimeStart.getText().toString();
-        String eventEnd = eventTimeEnd.getText().toString();
-        Boolean driving = this.driving.isChecked();
-        Boolean anniversary = this.anniversary.isChecked();
-        Boolean gallery = this.gallery.isChecked();
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
-        Event.eventsList.add(newEvent);
-        //saveEventToFirebase(newEvent);
-        finish();
+        switch (view.getId()) {
+            case R.id.bt_save:
+                String eventName = eventNameET.getText().toString();
+                String eventStart = eventTimeStart.getText().toString();
+                String eventEnd = eventTimeEnd.getText().toString();
+                Boolean driving = this.driving.isChecked();
+                Boolean anniversary = this.anniversary.isChecked();
+                Boolean gallery = this.gallery.isChecked();
+                Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
+                Event.eventsList.add(newEvent);
+                saveEventToFirebase(newEvent);
+                finish();
+                break;
+            default:
+                System.out.println(view.getId());
+        }
     }
 
     private void saveEventToFirebase(Event newEvent) {
-        db.collection("activities").document("doc")
+        db.collection("activities").document(newEvent.getName())
                 .set(newEvent)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

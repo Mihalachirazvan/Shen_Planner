@@ -40,7 +40,7 @@ public class Event implements Serializable {
 
 
     private String name;
-    private LocalDate date;
+    private String date;
     private LocalTime start;
     private LocalTime end;
     private boolean driving;
@@ -59,11 +59,11 @@ public class Event implements Serializable {
         this.name = name;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -109,7 +109,7 @@ public class Event implements Serializable {
 
     public Event(String name, LocalDate date, LocalTime start, LocalTime end, Boolean driving, Boolean anniversary, Boolean gallery) {
         this.name = name;
-        this.date = date;
+        this.date = date.toString();
         this.start = start;
         this.end = end;
         this.driving = driving;
