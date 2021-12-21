@@ -31,6 +31,7 @@
         <activity android:name=".AnniversaryEvent" />
         <activity android:name=".PlaceEvent" />
         <activity android:name=".Gallery"/>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
