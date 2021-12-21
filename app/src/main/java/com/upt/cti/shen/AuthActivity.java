@@ -99,13 +99,18 @@ public class AuthActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent intent = new Intent(getApplicationContext(), TaskActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
             startActivity(intent);
             Toast.makeText(AuthActivity.this, "All good", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(AuthActivity.this, "Sorry auth failed.", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void openCalendar(View view){
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
     }
 
 }

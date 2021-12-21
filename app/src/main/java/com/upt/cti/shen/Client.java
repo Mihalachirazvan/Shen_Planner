@@ -10,20 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Client extends AppCompatActivity {
 
-    private Button btTask;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.suggestion_page);
-        btTask = (Button) findViewById(R.id.btTask);
-
-    }
-    public void clicked(View view) {
-        switch (view.getId()) {
-            case R.id.btTask:
-                startActivity(new Intent(this, Service.class));
-                break;
-        }
-    }
+//    private Button btTask;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.suggestion_page);
+//        btTask = (Button) findViewById(R.id.btTask);
+//
+//    }
+//    public void clicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.btTask:
+//                startActivity(new Intent(this, Service.class));
+//                break;
+//        }
+//    }
 
 }

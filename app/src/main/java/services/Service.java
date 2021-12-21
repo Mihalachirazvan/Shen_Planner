@@ -25,7 +25,7 @@ public class Service extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_page);
+        //setContentView(R.layout.task_page);
 //        btDate = (Button) findViewById(R.id.btDate);
 //        btTimeStart = (Button) findViewById(R.id.btTimeStart);
 //        btTimeEnd = (Button) findViewById(R.id.btTimeEnd);
