@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Shen</string>
+    <string name="map_key" templateMergeStrateg = "preserve" translatable="false" >
+       AIzaSyDXQIHIT4D_TUJoXo8ffS56Dtrhicq68fk
+    </string>
+    <string name="nearby_api" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyAPVTSAz1WTxwqBNejvFi-g51R1fcBi3Fk
+    </string>
     <string name="google_place_api"></string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>

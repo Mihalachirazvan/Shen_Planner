@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/activity_auth.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/activity_week_view.xml" value="0.264" />
+        <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/calendar_cell.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/event_cell.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/hour_cell.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/activity_daily_calendar.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/activity_event_edit.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/activity_gallery.xml" value="0.10729166666666666" />
@@ -13,6 +17,7 @@
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/event_cell.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/hour_cell.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/map.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/montly_calendar.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/montly_calendar.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/suggestion_page.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/task_page.xml" value="0.13020833333333334" />

@@ -14,8 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Shen">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key"></meta-data>
+
         <activity
-            android:name=".AuthActivity"
+            android:name="services.Suggestion"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +28,10 @@
         </activity>
         <activity android:name=".Client" />
         <activity android:name="services.Service" />
+        <activity android:name=".TaskActivity"/>
+        <!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
+        <!--            android:value="@string/google_place_api"></meta-data>-->
+        <receiver android:name="notifications.RouteLocation"/>
         <activity android:name=".CalendarActivity"/>
         <activity android:name=".DailyCalendarActivity"/>
         <activity android:name=".EventEditActivity"/>
