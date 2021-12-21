@@ -21,11 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.upt.cti.shen.utils.CalendarUtils;
 import com.upt.cti.shen.utils.Event;
+import com.upt.cti.shen.utils.FirebaseObject;
 
 import java.time.LocalTime;
 
-public class EventEditActivity extends AppCompatActivity
-{
+public class EventEditActivity extends AppCompatActivity {
     private EditText eventNameET, eventTimeStart, eventTimeEnd;
     private TextView eventDateTV;
     @SuppressLint("VisibleForTests")
@@ -38,16 +38,14 @@ public class EventEditActivity extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
         initWidgets();
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
     }
 
-    private void initWidgets()
-    {
+    private void initWidgets() {
         eventNameET = findViewById(R.id.eventNameET);
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeStart = findViewById(R.id.eventTimeStartField);
@@ -61,8 +59,7 @@ public class EventEditActivity extends AppCompatActivity
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void saveEventAction(View view)
-    {
+    public void saveEventAction(View view) {
         switch (view.getId()) {
             case R.id.bt_save:
                 String eventName = eventNameET.getText().toString();
@@ -82,8 +79,11 @@ public class EventEditActivity extends AppCompatActivity
     }
 
     private void saveEventToFirebase(Event newEvent) {
+        FirebaseObject firebaseEvent = new FirebaseObject(newEvent.getName(),
+                newEvent.getDate().toString(), newEvent.getStart(), newEvent.getEnd(),
+                newEvent.getDriving(), newEvent.getAnniversary(), newEvent.getGallery(), newEvent.isGift(), newEvent.isLike_address(), newEvent.getLocation_txt(), newEvent.getmArrayUri());
         db.collection("activities").document(newEvent.getName())
-                .set(newEvent)
+                .set(firebaseEvent)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
