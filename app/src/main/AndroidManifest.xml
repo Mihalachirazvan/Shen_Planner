@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,13 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shen">
         <activity
-            android:name=".MainActivity"
+            android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Client" />
+        <activity android:name="services.Service" />
+        <activity android:name=".CalendarActivity"/>
+        <activity android:name=".DailyCalendarActivity"/>
+        <activity android:name=".EventEditActivity"/>
+        <activity android:name=".WeekViewActivity"/>
+        <activity android:name=".AnniversaryEvent" />
+        <activity android:name=".PlaceEvent" />
+        <activity android:name=".Gallery"/>
     </application>
 
 </manifest>
