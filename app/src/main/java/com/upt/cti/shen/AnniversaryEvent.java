@@ -6,7 +6,6 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.upt.cti.shen.utils.Event;
 
-import java.util.ArrayList;
 
 public class AnniversaryEvent extends AppCompatActivity {
 
@@ -44,13 +42,10 @@ public class AnniversaryEvent extends AppCompatActivity {
         bt_add_pictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // initialising intent
                 Intent intent = new Intent();
 
-                // setting type to select to be image
                 intent.setType("image/*");
 
-                // allowing multiple image to be selected
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
@@ -71,14 +66,11 @@ public class AnniversaryEvent extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // When an Image is picked
         if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK && null != data) {
-            // Get the Image from data
             if (data.getClipData() != null) {
                 ClipData mClipData = data.getClipData();
                 int cout = data.getClipData().getItemCount();
                 for (int i = 0; i < cout; i++) {
-                    // adding imageuri in array
                     Uri imageurl = data.getClipData().getItemAt(i).getUri();
                     eventsList.get(positionEvent()).getmArrayUri().add(imageurl);
                     System.out.println(imageurl);
@@ -89,7 +81,6 @@ public class AnniversaryEvent extends AppCompatActivity {
                 eventsList.get(positionEvent()).getmArrayUri().add(imageurl);
             }
         } else {
-            // show this if no image is selected
             Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
         }
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#FFFCEDEA"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
     <LinearLayout
@@ -22,8 +23,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/back"
-                android:textColor="@color/blue"
-                android:background="@null"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/main"
                 android:textStyle="bold"
                 android:onClick="previousDayAction"
                 android:textSize="20sp"/>
@@ -43,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/forward"
-                android:textColor="@color/blue"
-                android:background="@null"
+                android:textColor="@color/black"
+                android:backgroundTint="#FFFCEDEA"
                 android:textStyle="bold"
                 android:onClick="nextDayAction"
                 android:textSize="20sp"/>
@@ -73,10 +74,10 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@null"
+        android:textColor="@color/black"
+        android:backgroundTint="#FFFCEDEA"
         android:onClick="newEventAction"
         android:text="+"
-        android:textColor="@color/blue"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -20,25 +20,20 @@ public class CustomGalleryAdapter extends BaseAdapter {
         this.images = images;
     }
 
-    // returns the number of images
     public int getCount() {
         return images.size();
     }
 
-    // returns the ID of an item
     public Object getItem(int position) {
         return position;
     }
 
-    // returns the ID of an item
     public long getItemId(int position) {
         return position;
     }
 
-    // returns an ImageView view
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // create a ImageView programmatically
         ImageView imageView = new ImageView(context);
         imageView.setImageURI(images.get(position)); // set image in ImageView
         imageView.setLayoutParams(new Gallery.LayoutParams(200, 200)); // set ImageView param

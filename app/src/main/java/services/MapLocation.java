@@ -1,7 +1,6 @@
 package services;
 
 import android.app.AlarmManager;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.location.Address;
@@ -9,12 +8,9 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -47,12 +43,10 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
         btNotification = (Button) findViewById(R.id.btNotification);
         RouteLocation.createNotificationRoute(this);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //button listener
         btNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +69,6 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Implement an search View listener for getting new locations via Google Map
         input_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -109,9 +102,6 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
                 return false;
             }
         });
-
-    }
-    public void test() {
 
     }
 }

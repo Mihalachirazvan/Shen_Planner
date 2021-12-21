@@ -10,15 +10,11 @@ import java.util.List;
 
 public class JsonParser {
     private HashMap<String,String> parseJsonObject(JSONObject object) {
-        //Initialize hash map
         HashMap<String,String> dataList = new HashMap<>();
         try {
-            //Get name from object
             String name = object.getString("name");
-            //Get Latitudine from object
             String latitudine = object.getJSONObject("geometry")
                                 .getJSONObject("location").getString("lat");
-            //Get Longitude from object
             String longitude = object.getJSONObject("geometry")
                     .getJSONObject("location").getString("lng");
             dataList.put("name",name);
