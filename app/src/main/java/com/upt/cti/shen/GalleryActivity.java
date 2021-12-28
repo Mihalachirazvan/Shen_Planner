@@ -14,7 +14,7 @@ import com.upt.cti.shen.utils.CustomGalleryAdapter;
 
 import java.util.ArrayList;
 
-public class Gallery extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity {
 
     private ImageView selectedImageView;
     private ListView simpleGallery;

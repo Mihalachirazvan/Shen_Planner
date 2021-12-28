@@ -1,6 +1,7 @@
 package com.upt.cti.shen;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +71,13 @@ public class EventEditActivity extends AppCompatActivity {
                 Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
                 Event.eventsList.add(newEvent);
                 saveEventToFirebase(newEvent);
+                if (anniversary) {
+                    openAnniversary(view);
+                } else if (driving) {
+                    openDrivingIndications(view);
+                } else if (gallery) {
+                    openGallery(view);
+                }
                 finish();
                 break;
             default:
@@ -96,5 +104,20 @@ public class EventEditActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public void openAnniversary(View view){
+        Intent intent = new Intent(this, AnniversaryEventActivity.class);
+        startActivity(intent);
+    }
+
+    public void openGallery(View view){
+        Intent intent = new Intent(this, GalleryActivity.class);
+        startActivity(intent);
+    }
+
+    public void openDrivingIndications(View view){
+        Intent intent = new Intent(this, MapLocationActivity.class);
+        startActivity(intent);
     }
 }

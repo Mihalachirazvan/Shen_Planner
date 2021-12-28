@@ -11,11 +11,15 @@
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/map.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/suggestion_page.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/razvan/AndroidStudioProjects/shen/app/src/main/res/layout/task_page.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_anniversary_page.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/activity_daily_calendar.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_event_edit.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_gallery.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14895833333333333" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.14895833333333333" />
+        <entry key="app/src/main/res/layout/activity_suggestion.xml" value="0.14895833333333333" />
+        <entry key="app/src/main/res/layout/activity_visited_page.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/activity_week_view.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/anniversary_page.xml" value="0.14895833333333333" />
         <entry key="app/src/main/res/layout/calendar_cell.xml" value="0.14895833333333333" />

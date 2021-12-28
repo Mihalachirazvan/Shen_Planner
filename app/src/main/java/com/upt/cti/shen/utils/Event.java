@@ -43,12 +43,13 @@ public class Event implements Serializable {
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;
+    private String address;
     private boolean driving;
     private boolean anniversary;
     private boolean gallery;
     private boolean gift = false;
     private boolean like_address = false;
-    private String location_txt="";
+    private String location_txt = "";
     private transient ArrayList<Uri> mArrayUri = new ArrayList<>();
 
     public String getName() {
@@ -144,5 +145,13 @@ public class Event implements Serializable {
 
     public ArrayList<Uri> getmArrayUri() {
         return mArrayUri;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

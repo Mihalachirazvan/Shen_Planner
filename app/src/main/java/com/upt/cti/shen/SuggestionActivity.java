@@ -1,4 +1,4 @@
-package services;
+package com.upt.cti.shen;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.upt.cti.shen.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +40,7 @@ import java.util.List;
 
 import utils.JsonParser;
 
-public class Suggestion extends AppCompatActivity {
+public class SuggestionActivity extends AppCompatActivity {
     private Spinner sp_type;
     private SupportMapFragment mapView;
     private GoogleMap map;
@@ -51,7 +50,7 @@ public class Suggestion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.suggestion_page);
+        setContentView(R.layout.activity_suggestion);
 
         sp_type = (Spinner) findViewById(R.id.sp_type);
         mapView = (SupportMapFragment) getSupportFragmentManager()
@@ -60,15 +59,15 @@ public class Suggestion extends AppCompatActivity {
         final String[] placeTypeList = {"restaurant", "movie_theater", "atm", "hospital"};
         final String[] placeNameList = {"Restaurant", "Movie Theater", "ATM", "Hospital"};
         sp_type.setAdapter(new ArrayAdapter<>(
-                Suggestion.this, R.layout.support_simple_spinner_dropdown_item, placeNameList));
+                SuggestionActivity.this, R.layout.support_simple_spinner_dropdown_item, placeNameList));
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ActivityCompat.checkSelfPermission(
-                Suggestion.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                SuggestionActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
         } else {
-            ActivityCompat.requestPermissions(Suggestion.this,
+            ActivityCompat.requestPermissions(SuggestionActivity.this,
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION},44);
         }
         sp_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

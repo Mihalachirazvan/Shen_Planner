@@ -1,54 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:background="#FFFCEDEA"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFCEDEA">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="416dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="620dp"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/imageButton2"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:textStyle="bold"
+        android:backgroundTint="#FFFCEDEA"
+        android:layout_marginBottom="13dp"
+        android:gravity="right"
+        android:text="\?"
+        android:onClick="openSuggestion"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".DailyCalendarActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="80dp"
+            android:orientation="horizontal">
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@color/main"
+                android:onClick="previousDayAction"
                 android:text="@string/back"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/main"
-                android:textStyle="bold"
-                android:onClick="previousDayAction"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/monthDayText"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:onClick="openWeeklyCalendar"
                 android:text="Feb 2021"
-                android:textSize="20sp"
                 android:textAlignment="center"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="#FFFCEDEA"
+                android:onClick="nextDayAction"
                 android:text="@string/forward"
                 android:textColor="@color/black"
-                android:backgroundTint="#FFFCEDEA"
-                android:textStyle="bold"
-                android:onClick="nextDayAction"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -56,28 +79,27 @@
             android:id="@+id/dayOfWeekTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Monday"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/gray"
+            android:text="Monday"
             android:textAlignment="center"
-            android:textSize="18sp"/>
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
 
         <ListView
             android:id="@+id/hourListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"/>
-
+            android:layout_weight="5" />
     </LinearLayout>
 
     <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:textColor="@color/black"
         android:backgroundTint="#FFFCEDEA"
         android:onClick="newEventAction"
         android:text="+"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -6,11 +6,13 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,22 +20,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.upt.cti.shen.utils.Event;
 
-
-public class AnniversaryEvent extends AppCompatActivity {
-
-    private TextView txt_title;
-    private Switch sw_gift;
+public class PlaceEventActivity extends AppCompatActivity {
+    private EditText edt_address;
+    private Switch sw_like_adr;
     private Button bt_add_pictures;
     private Button bt_view_picture;
     private Event event;
     private int PICK_IMAGE_MULTIPLE = 1;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.anniversary_page);
-        txt_title = (TextView) findViewById(R.id.txt_title);
-        sw_gift = (Switch) findViewById(R.id.sw_gift);
+        setContentView(R.layout.activity_visited_page);
+        edt_address = (EditText) findViewById(R.id.edt_address);
+        sw_like_adr = (Switch) findViewById(R.id.sw_like_adr);
         bt_add_pictures = (Button) findViewById(R.id.bt_add_pictures);
         bt_view_picture = (Button) findViewById(R.id.bt_view_pictures);
         event = (Event) getIntent().getSerializableExtra("Event");
@@ -51,18 +50,58 @@ public class AnniversaryEvent extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
             }
         });
+
         bt_view_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Gallery.class);
-                System.out.println(getIntent().getSerializableExtra("Event"));
+                Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
                 intent.putExtra("Images",eventsList.get(positionEvent()).getmArrayUri());
                 startActivity(intent);
             }
         });
 
     }
+    private void init() {
+        if (event.getLocation_txt().length() != 0) {
+            edt_address.setText(event.getLocation_txt());
+        } else {
+            edt_address.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
 
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if (edt_address.getText().length() != 0) {
+                        eventsList.get(positionEvent()).setLocation_txt(edt_address.getText().toString());
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+        }
+        if (event.isLike_address()) {
+            sw_like_adr.setChecked(true);
+        } else {
+            sw_like_adr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    eventsList.get(positionEvent()).setLike_address(b);
+                }
+            });
+        }
+    }
+    private int positionEvent() {
+        for(int j=0 ;j < eventsList.size();j++) {
+            if(eventsList.get(j).getName().equals(event.getName())) {
+                return j;
+            }
+        }
+        return -1;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -77,36 +116,10 @@ public class AnniversaryEvent extends AppCompatActivity {
                 }
             } else {
                 Uri imageurl = data.getData();
-                System.out.println(imageurl);
                 eventsList.get(positionEvent()).getmArrayUri().add(imageurl);
             }
         } else {
             Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
         }
     }
-
-    private void init() {
-        txt_title.setText(event.getName());
-        if(event.isGift()) {
-         sw_gift.setChecked(true);
-        }
-        else {
-            sw_gift.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    eventsList.get(positionEvent()).setGift(b);
-
-                }
-            });
-        }
-    }
-    private int positionEvent() {
-        for(int j=0 ;j < eventsList.size();j++) {
-            if(eventsList.get(j).getName().equals(event.getName())) {
-                return j;
-            }
-        }
-        return -1;
-    }
-
 }

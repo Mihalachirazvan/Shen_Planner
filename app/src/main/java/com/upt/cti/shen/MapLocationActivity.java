@@ -1,4 +1,4 @@
-package services;
+package com.upt.cti.shen;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -19,7 +19,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.upt.cti.shen.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import java.util.List;
 import notifications.RouteLocation;
 
 
-public class MapLocation extends FragmentActivity implements OnMapReadyCallback {
+public class MapLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private SearchView input_search;
@@ -38,7 +37,7 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map);
+        setContentView(R.layout.activity_map);
         input_search = (SearchView) findViewById(R.id.input_search);
         btNotification = (Button) findViewById(R.id.btNotification);
         RouteLocation.createNotificationRoute(this);
@@ -50,9 +49,9 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
         btNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapLocation.this, RouteLocation.class);
+                Intent intent = new Intent(MapLocationActivity.this, RouteLocation.class);
                 intent.putExtra("Location", "Cluj");
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(MapLocation.this,0,intent,0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(MapLocationActivity.this,0,intent,0);
 
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -76,7 +75,7 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
                 List<Address> addressList = new ArrayList<>();
 
                 if(location != null || !location.equals("")) {
-                    Geocoder geocoder = new Geocoder(MapLocation.this);
+                    Geocoder geocoder = new Geocoder(MapLocationActivity.this);
                     try {
                         addressList = geocoder.getFromLocationName(location,2);
                     } catch (IOException e) {
@@ -103,5 +102,9 @@ public class MapLocation extends FragmentActivity implements OnMapReadyCallback 
             }
         });
 
+    }
+
+    public void saveEventAddress() {
+        //TODO: find event in firebase and update its address
     }
 }
