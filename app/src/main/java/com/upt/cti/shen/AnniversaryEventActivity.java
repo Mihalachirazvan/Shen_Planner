@@ -25,7 +25,7 @@ public class AnniversaryEventActivity extends AppCompatActivity {
     private Switch sw_gift;
     private Button bt_add_pictures;
     private Button bt_view_picture;
-    private Event event;
+    private Event event = new Event("", false);
     private int PICK_IMAGE_MULTIPLE = 1;
 
     @Override
@@ -86,6 +86,10 @@ public class AnniversaryEventActivity extends AppCompatActivity {
     }
 
     private void init() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.event = new Event(extras.getString("eventName"), extras.getBoolean("eventWithGift"));
+        }
         txt_title.setText(event.getName());
         if(event.isGift()) {
          sw_gift.setChecked(true);

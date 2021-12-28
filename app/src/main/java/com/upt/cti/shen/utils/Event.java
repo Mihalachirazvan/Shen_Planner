@@ -13,6 +13,12 @@ import java.util.ArrayList;
 public class Event implements Serializable {
     public static ArrayList<Event> eventsList = new ArrayList<>();
 
+    public Event(String name, boolean gift) {
+        this.name = name;
+        this.gift = gift;
+    }
+
+
     public static ArrayList<Event> eventsForDate(LocalDate date) {
         ArrayList<Event> events = new ArrayList<>();
 

@@ -1,9 +1,16 @@
 package com.upt.cti.shen;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +21,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,9 +32,20 @@ import com.upt.cti.shen.utils.CalendarUtils;
 import com.upt.cti.shen.utils.Event;
 import com.upt.cti.shen.utils.FirebaseObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
+import notifications.NotificationService;
 
 public class EventEditActivity extends AppCompatActivity {
+    private static final String CHANNEL_ID = "my_channel";
     private EditText eventNameET, eventTimeStart, eventTimeEnd;
     private TextView eventDateTV;
     @SuppressLint("VisibleForTests")
@@ -43,6 +63,7 @@ public class EventEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_edit);
         initWidgets();
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
+        createNotificationChannel();
     }
 
     private void initWidgets() {
@@ -72,11 +93,15 @@ public class EventEditActivity extends AppCompatActivity {
                 Event.eventsList.add(newEvent);
                 saveEventToFirebase(newEvent);
                 if (anniversary) {
-                    openAnniversary(view);
+                    scheduleNotification(this, 0, newEvent, false);
+                    openAnniversary(view, newEvent);
                 } else if (driving) {
+                    scheduleNotification(this, 0, newEvent, true);
                     openDrivingIndications(view);
                 } else if (gallery) {
-                    openGallery(view);
+                    scheduleNotification(this, 0, newEvent, false);
+                } else {
+                    scheduleNotification(this, 0, newEvent, true);
                 }
                 finish();
                 break;
@@ -106,18 +131,62 @@ public class EventEditActivity extends AppCompatActivity {
 
     }
 
-    public void openAnniversary(View view){
+    public void openAnniversary(View view, Event event) {
         Intent intent = new Intent(this, AnniversaryEventActivity.class);
+        intent.putExtra("eventName", event.getName());
+        intent.putExtra("eventWithGift", event.isGift());
         startActivity(intent);
     }
 
-    public void openGallery(View view){
-        Intent intent = new Intent(this, GalleryActivity.class);
-        startActivity(intent);
-    }
-
-    public void openDrivingIndications(View view){
+    public void openDrivingIndications(View view) {
         Intent intent = new Intent(this, MapLocationActivity.class);
         startActivity(intent);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "SHEN";
+            String description = "SHEN";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void scheduleNotification(Context context, int notificationId, Event event, boolean modifyHour) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle(event.getName())
+                .setContentText("You need to attend to" + event.getName())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent intent = new Intent(context, EventEditActivity.class);
+        PendingIntent activity = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        builder.setContentIntent(activity);
+
+        Notification notification = builder.build();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        if (modifyHour) {
+            calendar.set(Calendar.HOUR_OF_DAY, event.getStart().getHour() + 1);
+        } else {
+            calendar.set(Calendar.HOUR_OF_DAY, event.getStart().getHour());
+        }
+        calendar.set(Calendar.MINUTE, event.getStart().getMinute());
+        calendar.set(Calendar.SECOND, event.getStart().getSecond());
+
+
+        Intent notificationIntent = new Intent(context, NotificationService.class);
+        notificationIntent.putExtra(NotificationService.NOTIFICATION_ID, notificationId);
+        notificationIntent.putExtra(NotificationService.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notificationId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 }

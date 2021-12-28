@@ -38,6 +38,8 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".SuggestionActivity"/>
         <activity android:name=".MapLocationActivity"/>
+
+        <receiver android:name="notifications.NotificationService" />
     </application>
 
 </manifest>
