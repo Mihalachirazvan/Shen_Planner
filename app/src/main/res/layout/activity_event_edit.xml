@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="416dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="620dp"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="80dp"
         tools:context=".EventEditActivity">
 
         <TextView
@@ -85,18 +96,24 @@
             android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textFontWeight="400"
+            android:textSize="15dp"
             android:text="I need driving indications" />
 
         <Switch
             android:id="@+id/anniversary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textFontWeight="400"
+            android:textSize="15dp"
             android:text="This is an anniversary" />
 
         <Switch
             android:id="@+id/gallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textFontWeight="400"
+            android:textSize="15dp"
             android:text="Create photo gallery" />
 
         <Button
@@ -104,11 +121,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:background="@null"
+            android:backgroundTint="@color/main"
             android:onClick="saveEventAction"
             android:text="Save"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 

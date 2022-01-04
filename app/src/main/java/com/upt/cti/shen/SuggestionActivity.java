@@ -1,6 +1,7 @@
-package services;
+package com.upt.cti.shen;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -24,13 +25,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.maps.GeoApiContext;
-import com.google.maps.PlacesApi;
-import com.google.maps.model.PlaceType;
-import com.google.maps.model.PlacesSearchResponse;
-import com.google.maps.model.PlacesSearchResult;
-import com.google.maps.model.RankBy;
-import com.upt.cti.shen.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +40,7 @@ import java.util.List;
 
 import utils.JsonParser;
 
-public class Suggestion extends AppCompatActivity {
+public class SuggestionActivity extends AppCompatActivity {
     private Spinner sp_type;
     private SupportMapFragment mapView;
     private GoogleMap map;
@@ -56,28 +50,24 @@ public class Suggestion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.suggestion_page);
+        setContentView(R.layout.activity_suggestion);
 
-        //Assign variable
         sp_type = (Spinner) findViewById(R.id.sp_type);
         mapView = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapView);
 
-        //Initialize array of places
         final String[] placeTypeList = {"restaurant", "movie_theater", "atm", "hospital"};
         final String[] placeNameList = {"Restaurant", "Movie Theater", "ATM", "Hospital"};
-        //set adapter on spinner
         sp_type.setAdapter(new ArrayAdapter<>(
-                Suggestion.this, R.layout.support_simple_spinner_dropdown_item, placeNameList));
+                SuggestionActivity.this, R.layout.support_simple_spinner_dropdown_item, placeNameList));
 
-        //Initialize fused location provider client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ActivityCompat.checkSelfPermission(
-                Suggestion.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                SuggestionActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
         } else {
-            ActivityCompat.requestPermissions(Suggestion.this,
+            ActivityCompat.requestPermissions(SuggestionActivity.this,
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION},44);
         }
         sp_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -91,7 +81,6 @@ public class Suggestion extends AppCompatActivity {
                         "&key=" + getResources().getString(R.string.nearby_api);
 
                 System.out.println(url);
-                //execute place task method to dowload json data
                 new PlaceTask().execute(url);
             }
 
@@ -116,7 +105,6 @@ public class Suggestion extends AppCompatActivity {
             System.out.println("not access granted");
             return;
         }
-        //Initialize task Location
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
@@ -124,7 +112,6 @@ public class Suggestion extends AppCompatActivity {
                 if(location!=null) {
                     currentLat = location.getLatitude();
                     currentLong = location.getLongitude();
-                    //Sync Map
                     mapView.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(GoogleMap googleMap) {
@@ -138,6 +125,7 @@ public class Suggestion extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 44) {
@@ -151,7 +139,6 @@ public class Suggestion extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            //initialize data
             String data = null;
             try {
                  data = downloadUrl(strings[0]);
@@ -164,7 +151,6 @@ public class Suggestion extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            //execute parser task
             new ParserTask().execute(s);
         }
 
@@ -189,15 +175,11 @@ public class Suggestion extends AppCompatActivity {
     private class ParserTask extends AsyncTask<String,Integer, List<HashMap<String,String>>> {
         @Override
         protected List<HashMap<String, String>> doInBackground(String... strings) {
-            //Create Json parser class;
             JsonParser jsonParser = new JsonParser();
-            //Initialize hash map
             List<HashMap<String,String>> mapList = null;
-            //Initialize json object
             JSONObject object = null;
             try {
                 object = new JSONObject(strings[0]);
-                //Parse json object
                 mapList = jsonParser.parseResult(object);
                 System.out.println(mapList);
             } catch (JSONException e) {
@@ -208,24 +190,16 @@ public class Suggestion extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<HashMap<String, String>> hashMaps) {
-            //clear map
             map.clear();
             for(int i=0;i<hashMaps.size();i++) {
                 HashMap<String,String> hashMapList = hashMaps.get(i);
-                //Get latitude
                 double lat = Double.parseDouble(hashMapList.get("lat"));
-                //Get longitude
                 double lng = Double.parseDouble(hashMapList.get("lng"));
-                //Get Name
                 String name = hashMapList.get("name");
-                //Concat lat and lng
                 LatLng latLng = new LatLng(lat,lng);
-                //Initialize marker options
                 MarkerOptions options = new MarkerOptions();
                 options.position(latLng);
-                //Set title
                 options.title(name);
-                //add marker
                 map.addMarker(options);
             }
         }

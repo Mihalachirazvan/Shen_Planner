@@ -29,7 +29,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.montly_calendar);
+        setContentView(R.layout.activity_montly_calendar);
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();

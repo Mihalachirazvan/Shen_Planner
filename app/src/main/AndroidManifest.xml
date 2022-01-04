@@ -19,27 +19,27 @@
             android:value="@string/map_key"></meta-data>
 
         <activity
-            android:name="services.Suggestion"
+            android:name=".AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Client" />
         <activity android:name="services.Service" />
-        <activity android:name=".TaskActivity"/>
-        <!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
-        <!--            android:value="@string/google_place_api"></meta-data>-->
         <receiver android:name="notifications.RouteLocation"/>
         <activity android:name=".CalendarActivity"/>
         <activity android:name=".DailyCalendarActivity"/>
         <activity android:name=".EventEditActivity"/>
         <activity android:name=".WeekViewActivity"/>
-        <activity android:name=".AnniversaryEvent" />
-        <activity android:name=".PlaceEvent" />
-        <activity android:name=".Gallery"/>
+        <activity android:name=".AnniversaryEventActivity" />
+        <activity android:name=".PlaceEventActivity" />
+        <activity android:name=".GalleryActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".SuggestionActivity"/>
+        <activity android:name=".MapLocationActivity"/>
+
+        <receiver android:name="notifications.NotificationService" />
     </application>
 
 </manifest>

@@ -10,12 +10,9 @@
         android:id="@+id/imageView2"
         android:layout_width="416dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="644dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo" />
+        android:layout_marginBottom="620dp"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="MissingConstraints" />
 
     <fragment
         android:id="@+id/mapView"

@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:background="#EEE9E7"
             android:layout_marginStart="20dp"
             android:id="@+id/eventCellTV"
             android:textSize="20sp"

@@ -18,6 +18,7 @@ import com.upt.cti.shen.utils.Event;
 import com.upt.cti.shen.utils.HourAdapter;
 import com.upt.cti.shen.utils.HourEvent;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -30,11 +31,13 @@ public class DailyCalendarActivity extends AppCompatActivity
     private TextView dayOfWeekTV;
     private ListView hourListView;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_calendar);
+        CalendarUtils.selectedDate = LocalDate.now();
         initWidgets();
     }
 
@@ -102,5 +105,15 @@ public class DailyCalendarActivity extends AppCompatActivity
     public void newEventAction(View view)
     {
         startActivity(new Intent(this, EventEditActivity.class));
+    }
+
+    public void openWeeklyCalendar(View view){
+        Intent intent = new Intent(this, WeekViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void openSuggestion(View view) {
+        Intent intent = new Intent(this, SuggestionActivity.class);
+        startActivity(intent);
     }
 }

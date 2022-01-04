@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PlaceEvent">
+    tools:context=".AnniversaryEventActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -18,67 +19,55 @@
         app:srcCompat="@drawable/logo" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="171dp"
+        android:layout_width="402dp"
+        android:layout_height="334dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/imageView2"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="@id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.213">
+        app:layout_constraintVertical_bias="0.558">
 
-        <EditText
-            android:id="@+id/edt_address"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
             android:text=""
-            android:hint="Address"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <Switch
-            android:id="@+id/sw_like_adr"
-            android:layout_width="match_parent"
+            android:id="@+id/sw_gift"
+            android:layout_width="345dp"
             android:layout_height="wrap_content"
-            android:text="Did you like it ?"
             android:layout_gravity="center"
             android:layout_marginTop="45dp"
-            android:textSize="20sp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="120dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.592"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.203">
+            android:text="Gift"
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/bt_view_pictures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/main"
             android:text="View pictures"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/bt_add_pictures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/main"
             android:text="Add pictures"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

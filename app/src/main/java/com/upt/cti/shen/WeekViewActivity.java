@@ -43,12 +43,12 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Event x = (Event) eventListView.getItemAtPosition(i);
                 if (x.getAnniversary()) {
-                    Intent intent = new Intent(adapterView.getContext(),AnniversaryEvent.class);
+                    Intent intent = new Intent(adapterView.getContext(), AnniversaryEventActivity.class);
                     intent.putExtra("Event",x);
                     startActivity(intent);
                 }
                 else if(x.getGallery()) {
-                    Intent intent = new Intent(adapterView.getContext(),PlaceEvent.class);
+                    Intent intent = new Intent(adapterView.getContext(), PlaceEventActivity.class);
                     intent.putExtra("Event",x);
                     startActivity(intent);
                 }
@@ -121,5 +121,10 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     public void dailyAction(View view)
     {
         startActivity(new Intent(this, DailyCalendarActivity.class));
+    }
+
+    public void openMonthlyCalendar(View view){
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
     }
 }

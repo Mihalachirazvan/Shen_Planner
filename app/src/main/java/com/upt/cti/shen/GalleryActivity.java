@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.upt.cti.shen.utils.CustomGalleryAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Gallery extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity {
 
     private ImageView selectedImageView;
     private ListView simpleGallery;
@@ -34,11 +33,9 @@ public class Gallery extends AppCompatActivity {
 
         customGalleryAdapter = new CustomGalleryAdapter(getApplicationContext(), images); // initialize the adapter
         simpleGallery.setAdapter(customGalleryAdapter); // set the adapter
-        // perform setOnItemClickListener event on the Gallery
         simpleGallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // set the selected image in the ImageView
                 selectedImageView.setImageURI(images.get(position));
 
             }

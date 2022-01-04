@@ -109,7 +109,7 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     public void openCalendar(View view){
-        Intent intent = new Intent(this, CalendarActivity.class);
+        Intent intent = new Intent(this, DailyCalendarActivity.class);
         startActivity(intent);
     }
 
