@@ -97,9 +97,10 @@ public class EventEditActivity extends AppCompatActivity {
                     openAnniversary(view, newEvent);
                 } else if (driving) {
                     scheduleNotification(this, 0, newEvent, true);
-                    openDrivingIndications(view);
+                    openDrivingIndications(view, newEvent);
                 } else if (gallery) {
                     scheduleNotification(this, 0, newEvent, false);
+                    openPlacesEvent(view,newEvent);
                 } else {
                     scheduleNotification(this, 0, newEvent, true);
                 }
@@ -112,7 +113,7 @@ public class EventEditActivity extends AppCompatActivity {
 
     private void saveEventToFirebase(Event newEvent) {
         FirebaseObject firebaseEvent = new FirebaseObject(newEvent.getName(),
-                newEvent.getDate().toString(), newEvent.getStart(), newEvent.getEnd(),
+                newEvent.getDate().toString(), newEvent.getStart().toString(), newEvent.getEnd().toString(),
                 newEvent.getDriving(), newEvent.getAnniversary(), newEvent.getGallery(), newEvent.isGift(), newEvent.isLike_address(), newEvent.getLocation_txt(), newEvent.getmArrayUri());
         db.collection("activities").document(newEvent.getName())
                 .set(firebaseEvent)
@@ -138,11 +139,16 @@ public class EventEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openDrivingIndications(View view) {
+    public void openDrivingIndications(View view , Event event) {
         Intent intent = new Intent(this, MapLocationActivity.class);
+        intent.putExtra("eventName", event.getName());
         startActivity(intent);
     }
-
+    public void openPlacesEvent(View view , Event event) {
+        Intent intent = new Intent(this, PlaceEventActivity.class);
+        intent.putExtra("eventName", event.getName());
+        startActivity(intent);
+    }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "SHEN";
