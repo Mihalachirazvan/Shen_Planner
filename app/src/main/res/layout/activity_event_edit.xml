@@ -98,6 +98,7 @@
             android:layout_height="wrap_content"
             android:textFontWeight="400"
             android:textSize="15dp"
+            android:onClick="checkOptions"
             android:text="I need driving indications" />
 
         <Switch
@@ -106,6 +107,7 @@
             android:layout_height="wrap_content"
             android:textFontWeight="400"
             android:textSize="15dp"
+            android:onClick="checkOptions"
             android:text="This is an anniversary" />
 
         <Switch
@@ -114,6 +116,7 @@
             android:layout_height="wrap_content"
             android:textFontWeight="400"
             android:textSize="15dp"
+            android:onClick="checkOptions"
             android:text="Create photo gallery" />
 
         <Button
