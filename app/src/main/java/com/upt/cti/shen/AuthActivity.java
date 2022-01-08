@@ -101,7 +101,7 @@ public class AuthActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+            Intent intent = new Intent(this, DailyCalendarActivity.class);
             FirebaseObject.getListItems();
             startActivity(intent);
             Toast.makeText(AuthActivity.this, "All good", Toast.LENGTH_SHORT).show();
