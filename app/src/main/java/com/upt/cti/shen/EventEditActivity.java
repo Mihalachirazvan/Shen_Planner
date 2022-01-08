@@ -102,36 +102,35 @@ public class EventEditActivity extends AppCompatActivity {
                     if (eventName.length() == 0 && eventStart.length() == 0 && eventEnd.length() == 0) {
                         throw new CompleteAllFields();
                     }
-                    if(eventName.length()==0)
+                    if (eventName.length() == 0)
                         throw new CheckEventName();
-                    if(eventStart.length()==0)
+                    if (eventStart.length() == 0)
                         throw new CheckEventStart();
-                    if(eventEnd.length()==0)
+                    if (eventEnd.length() == 0)
                         throw new CheckEventEnd();
-                    if(!checkTimeFormat(eventStart) || !checkTimeFormat(eventEnd))
+                    if (!checkTimeFormat(eventStart) || !checkTimeFormat(eventEnd))
                         throw new CheckEventTimeFormat();
-                    if(eventStart.compareTo(eventEnd)>=0)
+                    if (eventStart.compareTo(eventEnd) >= 0)
                         throw new CheckEventTime();
                     Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
                     Event.eventsList.add(newEvent);
 
-                saveEventToFirebase(newEvent);
-                if (anniversary) {
-                    scheduleNotification(this, 0, newEvent, false);
-                    openAnniversary(view, newEvent);
-                } else if (driving) {
-                    scheduleNotification(this, 0, newEvent, true);
-                    openDrivingIndications(view, newEvent);
-                } else if (gallery) {
-                    scheduleNotification(this, 0, newEvent, false);
-                    openPlacesEvent(view,newEvent);
-                } else {
-                    scheduleNotification(this, 0, newEvent, true);
-                }
-                finish();
-                break;
-                }
-                catch (CompleteAllFields | CheckEventName | CheckEventStart | CheckEventEnd | CheckEventTimeFormat | CheckEventTime e) {
+                    saveEventToFirebase(newEvent);
+                    if (anniversary) {
+                        scheduleNotification(this, "You need to attend ", 0, newEvent, false);
+                        openAnniversary(view, newEvent);
+                    } else if (driving) {
+                        scheduleNotification(this, "Prepare for driving to ", 1, newEvent, true);
+                        openDrivingIndications(view, newEvent);
+                    } else if (gallery) {
+                        scheduleNotification(this, "Create some memories ", 2, newEvent, false);
+                        openPlacesEvent(view, newEvent);
+                    } else {
+                        scheduleNotification(this, "Your event: ", 3, newEvent, true);
+                    }
+                    finish();
+                    break;
+                } catch (CompleteAllFields | CheckEventName | CheckEventStart | CheckEventEnd | CheckEventTimeFormat | CheckEventTime e) {
                     Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
 
@@ -141,6 +140,7 @@ public class EventEditActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void saveEventToFirebase(Event newEvent) {
         FirebaseObject firebaseEvent = new FirebaseObject(newEvent.getName(),
                 newEvent.getDate().toString(), newEvent.getStart().toString(), newEvent.getEnd().toString(),
@@ -169,16 +169,18 @@ public class EventEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openDrivingIndications(View view , Event event) {
+    public void openDrivingIndications(View view, Event event) {
         Intent intent = new Intent(this, MapLocationActivity.class);
         intent.putExtra("eventName", event.getName());
         startActivity(intent);
     }
-    public void openPlacesEvent(View view , Event event) {
+
+    public void openPlacesEvent(View view, Event event) {
         Intent intent = new Intent(this, PlaceEventActivity.class);
         intent.putExtra("eventName", event.getName());
         startActivity(intent);
     }
+
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "SHEN";
@@ -192,11 +194,11 @@ public class EventEditActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void scheduleNotification(Context context, int notificationId, Event event, boolean modifyHour) {
+    public void scheduleNotification(Context context, String message, int notificationId, Event event, boolean modifyHour) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(event.getName())
-                .setContentText("You need to attend to" + event.getName())
+                .setContentText(message + event.getName())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         Intent intent = new Intent(context, EventEditActivity.class);
@@ -208,7 +210,7 @@ public class EventEditActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         if (modifyHour) {
-            calendar.set(Calendar.HOUR_OF_DAY, event.getStart().getHour() + 1);
+            calendar.set(Calendar.HOUR_OF_DAY, event.getStart().getHour() - 1);
         } else {
             calendar.set(Calendar.HOUR_OF_DAY, event.getStart().getHour());
         }
@@ -225,10 +227,23 @@ public class EventEditActivity extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
+
     public boolean checkTimeFormat(String time) {
         Pattern pattern = Pattern.compile("[0-2][0-9]:[0-6][0-9]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(time);
         boolean matchFound = matcher.find();
         return matchFound;
+    }
+
+    public void checkOptions(View view) {
+        if ((driving.isChecked() && anniversary.isChecked()) || (driving.isChecked() && gallery.isChecked()) ||
+                (anniversary.isChecked() && gallery.isChecked())) {
+            createToast();
+        }
+    }
+
+    public void createToast() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Please, select just one option", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

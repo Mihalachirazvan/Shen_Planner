@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +40,20 @@ public class DailyCalendarActivity extends AppCompatActivity
         setContentView(R.layout.activity_daily_calendar);
         CalendarUtils.selectedDate = LocalDate.now();
         initWidgets();
+
+        hourListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                HourEvent x = (HourEvent) hourListView.getItemAtPosition(i);
+                if (x.getEvents().get(0).getAnniversary()) {
+                    openAnniversary(view, x.getEvents().get(0));
+                } else if (x.getEvents().get(0).getDriving()) {
+                    openDrivingIndications(view, x.getEvents().get(0));
+                } else if (x.getEvents().get(0).getGallery()) {
+                    openPlacesEvent(view, x.getEvents().get(0));
+                }
+            }
+        });
     }
 
     private void initWidgets()
@@ -114,6 +129,25 @@ public class DailyCalendarActivity extends AppCompatActivity
 
     public void openSuggestion(View view) {
         Intent intent = new Intent(this, SuggestionActivity.class);
+        startActivity(intent);
+    }
+
+    public void openAnniversary(View view, Event event) {
+        System.out.println(event.toString());
+        Intent intent = new Intent(this, AnniversaryEventActivity.class);
+        intent.putExtra("eventName", event.getName());
+        intent.putExtra("eventWithGift", event.isGift());
+        startActivity(intent);
+    }
+
+    public void openDrivingIndications(View view , Event event) {
+        Intent intent = new Intent(this, MapLocationActivity.class);
+        intent.putExtra("eventName", event.getName());
+        startActivity(intent);
+    }
+    public void openPlacesEvent(View view , Event event) {
+        Intent intent = new Intent(this, PlaceEventActivity.class);
+        intent.putExtra("eventName", event.getName());
         startActivity(intent);
     }
 }
