@@ -36,6 +36,7 @@
                 android:gravity="center"
                 android:lines="2"
                 android:text="Event 1"
+                android:onClick="openActivity"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -49,6 +50,7 @@
                 android:gravity="center"
                 android:lines="2"
                 android:text="Event 2"
+                android:onClick="openActivity"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -62,6 +64,7 @@
                 android:gravity="center"
                 android:lines="2"
                 android:text="Event 3"
+                android:onClick="openActivity"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 

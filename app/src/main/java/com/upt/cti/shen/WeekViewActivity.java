@@ -43,14 +43,11 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Event x = (Event) eventListView.getItemAtPosition(i);
                 if (x.getAnniversary()) {
-                    Intent intent = new Intent(adapterView.getContext(), AnniversaryEventActivity.class);
-                    intent.putExtra("Event",x);
-                    startActivity(intent);
-                }
-                else if(x.getGallery()) {
-                    Intent intent = new Intent(adapterView.getContext(), PlaceEventActivity.class);
-                    intent.putExtra("Event",x);
-                    startActivity(intent);
+                    openAnniversary(view, x);
+                } else if (x.getDriving()) {
+                    openDrivingIndications(view, x);
+                } else if (x.getGallery()) {
+                    openPlacesEvent(view, x);
                 }
             }
         });
@@ -125,6 +122,23 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
 
     public void openMonthlyCalendar(View view){
         Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
+    }
+    public void openAnniversary(View view, Event event) {
+        Intent intent = new Intent(this, AnniversaryEventActivity.class);
+        intent.putExtra("eventName", event.getName());
+        intent.putExtra("eventWithGift", event.isGift());
+        startActivity(intent);
+    }
+
+    public void openDrivingIndications(View view , Event event) {
+        Intent intent = new Intent(this, MapLocationActivity.class);
+        intent.putExtra("eventName", event.getName());
+        startActivity(intent);
+    }
+    public void openPlacesEvent(View view , Event event) {
+        Intent intent = new Intent(this, PlaceEventActivity.class);
+        intent.putExtra("eventName", event.getName());
         startActivity(intent);
     }
 }

@@ -73,12 +73,17 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         }
     }
 
-    public void weeklyAction(View view) {
+    public void openWeeklyCalendar(View view) {
         startActivity(new Intent(this, WeekViewActivity.class));
     }
 
     public void newEventAction(View view)
     {
         startActivity(new Intent(this, EventEditActivity.class));
+    }
+
+    public void openSuggestion(View view) {
+        Intent intent = new Intent(this, SuggestionActivity.class);
+        startActivity(intent);
     }
 }

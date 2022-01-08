@@ -1,14 +1,27 @@
 package com.upt.cti.shen.utils;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Event implements Serializable {
     public static ArrayList<Event> eventsList = new ArrayList<>();
@@ -18,6 +31,11 @@ public class Event implements Serializable {
         this.gift = gift;
     }
 
+    public Event(String name, boolean gift ,boolean like_address) {
+        this.name = name;
+        this.gift = gift;
+        this.like_address = like_address;
+    }
 
     public static ArrayList<Event> eventsForDate(LocalDate date) {
         ArrayList<Event> events = new ArrayList<>();
@@ -114,6 +132,10 @@ public class Event implements Serializable {
         this.gallery = gallery;
     }
 
+
+    public Event() {
+
+    }
     public Event(String name, LocalDate date, LocalTime start, LocalTime end, Boolean driving, Boolean anniversary, Boolean gallery) {
         this.name = name;
         this.date = date;
@@ -153,11 +175,33 @@ public class Event implements Serializable {
         return mArrayUri;
     }
 
+    public void setmArrayUri(ArrayList<Uri> mArrayUri) {
+        this.mArrayUri = mArrayUri;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "name='" + name + '\'' +
+                ", date=" + date +
+                ", start=" + start +
+                ", end=" + end +
+                ", address='" + address + '\'' +
+                ", driving=" + driving +
+                ", anniversary=" + anniversary +
+                ", gallery=" + gallery +
+                ", gift=" + gift +
+                ", like_address=" + like_address +
+                ", location_txt='" + location_txt + '\'' +
+                ", mArrayUri=" + mArrayUri +
+                '}';
     }
 }
