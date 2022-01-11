@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.upt.cti.shen.exceptions.CheckEventAlreadyExists;
 import com.upt.cti.shen.exceptions.CheckEventEnd;
 import com.upt.cti.shen.exceptions.CheckEventName;
 import com.upt.cti.shen.exceptions.CheckEventStart;
@@ -112,6 +113,8 @@ public class EventEditActivity extends AppCompatActivity {
                         throw new CheckEventTimeFormat();
                     if (eventStart.compareTo(eventEnd) >= 0)
                         throw new CheckEventTime();
+                    if (Event.eventsList.stream().filter(e -> e.getDate().toString().equals(CalendarUtils.selectedDate.toString()) && ((e.getStart().getHour()-LocalTime.parse(eventStart).getHour())==0)).findAny().isPresent())
+                        throw  new CheckEventAlreadyExists();
                     Event newEvent = new Event(eventName, CalendarUtils.selectedDate, LocalTime.parse(eventStart), LocalTime.parse(eventEnd), driving, anniversary, gallery);
                     Event.eventsList.add(newEvent);
 
@@ -130,7 +133,7 @@ public class EventEditActivity extends AppCompatActivity {
                     }
                     finish();
                     break;
-                } catch (CompleteAllFields | CheckEventName | CheckEventStart | CheckEventEnd | CheckEventTimeFormat | CheckEventTime e) {
+                } catch (CompleteAllFields | CheckEventName | CheckEventStart | CheckEventEnd | CheckEventTimeFormat | CheckEventTime | CheckEventAlreadyExists e) {
                     Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
 

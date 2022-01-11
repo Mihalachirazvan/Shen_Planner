@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.upt.cti.shen.exceptions.CheckNoEvent;
 import com.upt.cti.shen.utils.CalendarUtils;
 import com.upt.cti.shen.utils.Event;
 import com.upt.cti.shen.utils.HourAdapter;
@@ -40,17 +42,27 @@ public class DailyCalendarActivity extends AppCompatActivity
         setContentView(R.layout.activity_daily_calendar);
         CalendarUtils.selectedDate = LocalDate.now();
         initWidgets();
-
+        setDayView();
         hourListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                HourEvent x = (HourEvent) hourListView.getItemAtPosition(i);
-                if (x.getEvents().get(0).getAnniversary()) {
-                    openAnniversary(view, x.getEvents().get(0));
-                } else if (x.getEvents().get(0).getDriving()) {
-                    openDrivingIndications(view, x.getEvents().get(0));
-                } else if (x.getEvents().get(0).getGallery()) {
-                    openPlacesEvent(view, x.getEvents().get(0));
+
+                try {
+                    HourEvent x = (HourEvent) hourListView.getItemAtPosition(i);
+                    if(x.getEvents().size()==0) {
+                        throw new CheckNoEvent();
+                    }
+                    else if (x.getEvents().get(0).getAnniversary()) {
+                        openAnniversary(view, x.getEvents().get(0));
+                    } else if (x.getEvents().get(0).getDriving()) {
+                        openDrivingIndications(view, x.getEvents().get(0));
+                    } else if (x.getEvents().get(0).getGallery()) {
+                        openPlacesEvent(view, x.getEvents().get(0));
+                    }
+                }
+                catch (CheckNoEvent e) {
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
