@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="SUN"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -95,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="MON"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -104,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TUE"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -113,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="WED"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -122,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="THUR"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -131,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="FRI"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -140,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="SAT"
+                android:onClick="openDailyCalendar"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
