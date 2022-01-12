@@ -141,4 +141,8 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         intent.putExtra("eventName", event.getName());
         startActivity(intent);
     }
+    public void openSuggestion(View view) {
+        Intent intent = new Intent(this, SuggestionActivity.class);
+        startActivity(intent);
+    }
 }

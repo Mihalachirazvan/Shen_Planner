@@ -33,15 +33,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=">"
-        android:onClick="openCalendar"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/main"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="631dp"
-        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
